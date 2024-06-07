@@ -2,7 +2,7 @@
 variable "aws_region" {
   description = "AWS region for SES resources"
   type        = string
-  default     = "us-east-2"
+  default     = "us-east-1"
 }
 
 variable "name" {
