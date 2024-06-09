@@ -49,3 +49,15 @@
    rest_api_id (required)
    stage_name (required)
    tags (optional)
+
+----------
+
+ steps to run the application
+
+  terraform init
+  terraform plan
+  terraform apply
+   
+to destroy 
+
+  terraform destroy
