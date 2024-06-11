@@ -17,6 +17,11 @@ resource "aws_ses_event_destination" "example" {
   configuration_set_name = aws_ses_configuration_set.setting-configuration.name
   enabled                = true
   matching_types         = ["bounce", "complaint", "delivery", "send"]
+  cloudwatch_destination {
+    default_value  = "default"
+    dimension_name = "dimension"
+    value_source   = "emailHeader"
+  }
 }
 
 
