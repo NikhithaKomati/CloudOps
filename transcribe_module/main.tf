@@ -31,8 +31,8 @@ resource "aws_iam_policy" "transcribe_policy" {
       {
         "Effect": "Allow",
         "Action": [
-          "firehose:PutRecord",
-          "firehose:PutRecordBatch"
+          "transcribe:PutRecord",
+          "transcribe:PutRecordBatch"
         ],
         "Resource": "*"
       }
