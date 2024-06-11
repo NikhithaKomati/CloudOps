@@ -5,40 +5,60 @@ provider "aws" {
 #Create an IAM role for the Transcribe service
 resource "aws_iam_role" "transcribe_role" {
   name = var.iam_role_name
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "transcribe.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "firehose.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"  
+      }
+    ]
+  })
 }
 
 
-# Attach the necessary policy to the IAM role
-resource "aws_iam_role_policy_attachment" "transcribe_policy" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSTranscribeRole"
-  role       = aws_iam_role.transcribe_role.name
+# Create an IAM policy for Kinesis Data Firehose
+resource "aws_iam_policy" "transcribe_policy" {
+  name        = var.transcribe_iam_policy_name
+  description = "IAM policy for Kinesis Data Firehose"
+  
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "firehose:PutRecord",
+          "firehose:PutRecordBatch"
+        ],
+        "Resource": "*"
+      }
+    ]
+  })
+}
+
+
+# Attach the IAM policy to the IAM role
+resource "aws_iam_policy_attachment" "transcribe_attachment" {
+  name       = "transcribe-attachment"
+  policy_arn = aws_iam_policy.transcribe_policy.arn
+  roles      = [aws_iam_role.transcribe_role.name]
 }
 
 
 # Create an S3 bucket for the input audio file
 resource "aws_s3_bucket" "transcribe_input" {
-  bucket = "my-transcribe-input-bucket"
+  bucket = "my-transcribe-input-bucket-1"
 }
 
 # Create an S3 bucket for the transcription output
-resource "aws_s3_bucket" "transcribe_output" {
-  bucket = "my-transcribe-output-bucket"
+# resource "aws_s3_bucket" "transcribe_output" {
+#  bucket = "my-transcribe-output-bucket"
 
-}
+# }
 
 
 # Create an AWS Transcribe language model (optional)
@@ -48,7 +68,7 @@ resource "aws_transcribe_language_model" "example_language_model" {
   language_code = var.language_code
   input_data_config {
     data_access_role_arn="aws"
-    s3_uri = "s3://${aws_s3_bucket.transcribe_input.id}/custom-language-model-data/"  #pecifies the Amazon S3 location where the input data for the custom language model is stored
+    s3_uri = "s3://${aws_s3_bucket.transcribe_input.id}/custom-language-model-data/"  # specifies the Amazon S3 location where the input data for the custom language model is stored
   }
 }
 
