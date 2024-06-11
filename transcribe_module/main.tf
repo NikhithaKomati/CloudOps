@@ -23,7 +23,7 @@ resource "aws_iam_role" "transcribe_role" {
 # Create an IAM policy for transcribe service
 resource "aws_iam_policy" "transcribe_policy" {
   name        = var.transcribe_iam_policy_name
-  description = "IAM policy for Kinesis Data Firehose"
+  description = "IAM policy for transcribe"
   
   policy = jsonencode({
     "Version": "2012-10-17",
