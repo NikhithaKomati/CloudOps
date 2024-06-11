@@ -4,6 +4,22 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "iam_role_name" {
+  description = "describing the name of the iam role name"
+  type=string
+  default = "eks-cluster-role"
+}
+
+variable "eks_iam_policy_name" {
+  default = "eks-policy"
+}
+
+
+variable "eks_cluster_name" {
+  description = "describing the name of the aws eks cluster"
+  default = "example-cluster"
+}
+
 variable "vpc_cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
@@ -28,17 +44,6 @@ variable "private_subnet_cidr" {
   }
 }
 
-variable "iam_role_name" {
-  description = "describing the name of the iam role name"
-  type=string
-  default = "eks-cluster-role"
-}
-
-variable "eks_cluster_name" {
-  description = "describing the name of the aws eks cluster"
-  default = "example-cluster"
-}
-
 variable "name_tags" {
   description = "Tags to be applied on the naming of the Config"
   type        = map(string)
@@ -50,20 +55,4 @@ variable "name_tags" {
     owneremail   = "owner@mail.com"
     creationdate = "09-06-2024"
   }
-
 }
-
-
-# variable "name_tags_VPC" {
-#   description = "name tags for different"
-#   type        = string
-#   default     = "aws_vpc"
-
-# }
-
-# variable "name_tags_subnet" {
-#   description = "name tags for different"
-#   type        = string
-#   default     = "aws_subnet"
-
-# }
