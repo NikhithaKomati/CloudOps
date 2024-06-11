@@ -5,27 +5,49 @@ provider "aws" {
 
 resource "aws_iam_role" "mediaconvert_role" {
   name = var.iam_role_name
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "mediaconvert.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "mediaconvert.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"  
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role_policy_attachment" "mediaconvert_role_policy_attachment" {
-  role       = aws_iam_role.mediaconvert_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElementalMediaConvertRole"
+
+# Create an IAM policy for Kinesis Data Firehose
+resource "aws_iam_policy" "mediaconvert_policy" {
+  name        = "mediaconvert-policy"
+  description = "IAM policy for Kinesis Data Firehose"
+  
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "firehose:PutRecord",
+          "firehose:PutRecordBatch"
+        ],
+        "Resource": "*"
+      }
+    ]
+  })
 }
+
+
+# Attach the IAM policy to the IAM role
+resource "aws_iam_policy_attachment" "mediaconvert_attachment" {
+  name       = "mediaconvert-attachment"
+  policy_arn = aws_iam_policy.mediaconvert_policy.arn
+  roles      = [aws_iam_role.mediaconvert_role.name]
+}
+
 
 
 resource "aws_media_convert_queue" "example_queue" {
