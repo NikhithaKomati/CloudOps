@@ -1,6 +1,6 @@
 This Terraform configuration sets up the following AWS resources:
 
- IAM Role and Policy : Creates an IAM role and policy for the AWS MediaConvert service.
+ IAM Role and Policy : Creates an IAM role and policy for the AWS MediaConvert service.                                   
  MediaConvert Queue : Creates an AWS MediaConvert queue.
 
 
