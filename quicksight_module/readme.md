@@ -1,12 +1,12 @@
 
 This Terraform configuration sets up the necessary infrastructure for an AWS QuickSight :
 
-QuickSight User: Creates a QuickSight user with the specified email, namespace, user role, and identity type.
-S3 Bucket: Creates an S3 bucket to store the data for the QuickSight data source.
-S3 Object: Uploads a local file (e.g., "manifest.json") to the S3 bucket.
-QuickSight Data Source: Creates a QuickSight data source, specifying the S3 bucket and the path to the uploaded manifest file.
-QuickSight Data Set: Creates a QuickSight data set, specifying the data source and the input columns.
-QuickSight Analysis: Creates a QuickSight analysis, referencing the data set.
+QuickSight User: Creates a QuickSight user with the specified email, namespace, user role, and identity type.         
+S3 Bucket: Creates an S3 bucket to store the data for the QuickSight data source.                                     
+S3 Object: Uploads a local file (e.g., "manifest.json") to the S3 bucket.                                             
+QuickSight Data Source: Creates a QuickSight data source, specifying the S3 bucket and the path to the uploaded manifest file.                                                                                                        
+QuickSight Data Set: Creates a QuickSight data set, specifying the data source and the input columns.                 
+QuickSight Analysis: Creates a QuickSight analysis, referencing the data set.                                         
 QuickSight Dashboard: Creates a QuickSight dashboard, referencing the data set.
 
 
