@@ -1,3 +1,12 @@
+This Terraform configuration sets up an API Gateway in AWS, including the following resources:
+
+- API Gateway REST API
+- API Gateway Resource
+- API Gateway Method
+- API Gateway Integration
+- API Gateway Deployment
+- API Gateway Stage
+
 1. first I have created (aws_api_gateway_rest_api)  with first-api name
    name  --> required (taken from the variable.tf)
 
