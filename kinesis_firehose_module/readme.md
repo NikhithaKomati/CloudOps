@@ -1,3 +1,10 @@
+
+This Terraform configuration sets up the following AWS resources:
+
+IAM Role and Policy : Creates an IAM role and policy for the Kinesis Data Firehose service.
+S3 Bucket : Creates an S3 bucket to be used as the destination for the Kinesis Data Firehose delivery stream.
+Kinesis Data Firehose Delivery Stream : Creates a Kinesis Data Firehose delivery stream with the S3 bucket as the destination.
+
 1.  first I have created an iam_role (acts as an intermediary between the Firehose service and  the resources it needs to access, such as an S3 bucket on behalf of  firehose service)
 
     i. name (optional)  --> taken form variable .tf
