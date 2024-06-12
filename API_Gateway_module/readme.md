@@ -59,3 +59,10 @@ This Terraform configuration sets up an API Gateway in AWS, including the follow
    stage_name (required)
    tags (optional)
 
+   to run: 
+          terraform init
+          terraform plan
+          terraform apply
+   to destroy: 
+          terraform destroy
+
