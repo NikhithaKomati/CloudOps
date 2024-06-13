@@ -1,6 +1,6 @@
 
 provider "aws" {
-  region = "us-east-1"  
+  region = var.aws_region 
 }
 
 # Create an IAM role for Kinesis Data Firehose
@@ -44,14 +44,14 @@ resource "aws_iam_policy" "firehose_policy" {
 
 # Attach the IAM policy to the IAM role
 resource "aws_iam_policy_attachment" "firehose_attachment" {
-  name       = "firehose-attachment"
+  name       = var.firehose_policy_attachment_name
   policy_arn = aws_iam_policy.firehose_policy.arn
   roles      = [aws_iam_role.firehose_role.name]
 }
 
 # Create an S3 bucket
 resource "aws_s3_bucket" "my_bucket" {
-  bucket_prefix = "my-bucket-prefix-"  
+  bucket_prefix = var.s3_bucket_name 
 }
 
 # Create a Kinesis Data Firehose delivery stream with S3 as the destination
