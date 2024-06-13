@@ -10,11 +10,23 @@ variable "iam_role_name" {
   type = string
   default = "MediaConvertRole"
 }
+
+variable "iam_policy" {
+  description = "defining the name of the iam role policy"
+  type = string
+  default = "mediaconvert_policy"
+}
+
+variable "iam_attchment_name" {
+  description = "defining the name of the iam role policy attachment"
+  type = string
+  default = "mediaconvert_policy_attachment"
+}
+
 variable "media_convert_queue_name" {
     description = "describing the name of the media convert queue name"
     type = string
     default = "example-queue"
-  
 }
 
 variable "tag_name" {
@@ -22,6 +34,7 @@ variable "tag_name" {
   type = string
   default = "elemetal_mediaconvert_name"
 }
+
 variable "team" {
   description = "Team name"
   type        = string
