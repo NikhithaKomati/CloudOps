@@ -113,7 +113,7 @@ resource "aws_iam_role_policy_attachment" "workspaces_default_role_policy_attach
 
 # Create the Directory Service Simple AD directory
 resource "aws_directory_service_directory" "example-directory" {
-  name     = "corp.example.com"
+  name     = var.service_directory_name
   password = "YourStrongPassword123!"
   type     = "SimpleAD"
   vpc_settings {
