@@ -11,6 +11,24 @@ variable "name" {
     default = "first-api"
 }
 
+variable "resource_path" {
+  description = "describing the name of the resource path"
+  type=string
+  default = "example-resource"
+}
+
+variable "integration_type" {
+  description = "describing the type of api-gateway-integration"
+  type=string
+  default = "HTTP_PROXY"
+}
+
+variable "stage_name" {
+  description = "describing the name of the stage"
+  type = string
+  default = "production"
+}
+
 variable "Name" {
     description = "tag name"
     default = "tag-name"
