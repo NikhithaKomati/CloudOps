@@ -1,3 +1,4 @@
+
 provider "aws" {
   region = var.aws_region
 }
@@ -9,20 +10,21 @@ resource "aws_ses_email_identity" "setting-Email" {
 
 # Create an SES configuration set
 resource "aws_ses_configuration_set" "setting-configuration" {
-  name = var.name 
+  name = var.name
 }
 
 resource "aws_ses_event_destination" "example" {
-  name                   = "example-event-destination"
+  name                   = var.event_destination_name
   configuration_set_name = aws_ses_configuration_set.setting-configuration.name
   enabled                = true
   matching_types         = ["bounce", "complaint", "delivery", "send"]
   cloudwatch_destination {
-    default_value  = "default"
-    dimension_name = "dimension"
-    value_source   = "emailHeader"
+    default_value  = var.cloudwatch_name
+    dimension_name = var.clouwatch_value
+    value_source   = var.clouwatch_source
   }
 }
+
 
 
 
