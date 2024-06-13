@@ -74,3 +74,6 @@ to destroy:
             terraform destroy
 
 ---> It is a paid service and separately asking to login for this site. so, i did without terraform apply, and done with basic example taking manifest.json
+![Screenshot from 2024-06-13 19-04-19](https://github.com/NikhithaKomati/CloudOps/assets/169144759/3876017b-bb88-439f-903e-6163ee8f17b3)
+
+
