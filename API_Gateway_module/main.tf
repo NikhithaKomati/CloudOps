@@ -6,7 +6,7 @@ resource "aws_api_gateway_rest_api" "first-api" {
 resource "aws_api_gateway_resource" "resource" {
   rest_api_id = aws_api_gateway_rest_api.first-api.id    
   parent_id   = aws_api_gateway_rest_api.first-api.root_resource_id    
-  path_part   = "custom-path"   
+  path_part   = var.resource_path 
 }
 
 resource "aws_api_gateway_method" "method" {
@@ -21,14 +21,13 @@ resource "aws_api_gateway_integration" "integration" {
   resource_id = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
   integration_http_method = "ANY"        
-  type                    = "HTTP_PROXY"  
-  uri                     = "http://your.domain.com/{proxy}"
+  type                    = var.integration_type
 }
 
 resource "aws_api_gateway_deployment" "deploy-application" {
   rest_api_id = aws_api_gateway_rest_api.first-api.id
   depends_on = [ aws_api_gateway_integration.integration ]
-  stage_name = "production"
+  stage_name = var.stage_name
 }
 
 resource "aws_api_gateway_stage" "stage" {
