@@ -5,18 +5,32 @@ variable "aws_region" {
 }
 
 variable "firehose_iam_role_name" {
+  description = "defining the name of the iam role"
+  type = string
   default = "firehose-role"
 }
 
 variable "firehose_iam_policy_name" {
+  description = "defining the iam policy name"
+  type = string
   default = "firehose-policy"
 }
 
 variable "firehose_policy_attachment_name" {
+  description = "defining the iam policy attachment"
+  type = string
   default = "firehose-attachment"
 }
 
+variable "s3_bucket_name" {
+  description = "describing the name of s3 bucket"
+  type=string
+  default = "my-firehose-bucket"
+}
+
 variable "firehose_kinesis_delivery_stream_name" {
+  description = "defining the kinesis firehose delivery stream"
+  type = string
   default = "my-delivery-stream"
 }
 
