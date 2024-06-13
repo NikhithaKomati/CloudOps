@@ -39,7 +39,6 @@ This Terraform configuration sets up an API Gateway in AWS, including the follow
    http_method (required)
    integration_http_method (optional) --> it can handle any HTTP method (GET, POST, PUT, DELETE, etc.).
    type  (required)
-   uri (optional)
    request_parameters
 
 ---------------
