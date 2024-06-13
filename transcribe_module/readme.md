@@ -56,5 +56,4 @@ to destroy
 
 i tried to convert an audio file to text but it is asking for read permission 
 
-
-![alt text](<Screenshot from 2024-06-13 17-46-37.png>)
+![image](https://github.com/NikhithaKomati/CloudOps/assets/169144759/69bd2139-50a4-4ccd-9931-6c4b0e336f7e)
