@@ -2,7 +2,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-#Create an IAM role for the Transcribe service
 resource "aws_iam_role" "transcribe_role" {
   name = var.iam_role_name
   assume_role_policy = jsonencode({
@@ -11,7 +10,7 @@ resource "aws_iam_role" "transcribe_role" {
       {
         "Effect" : "Allow",
         "Principal" : {
-          "Service" : "firehose.amazonaws.com"
+          "Service" : "transcribe.amazonaws.com"
         },
         "Action" : "sts:AssumeRole"  
       }
@@ -20,21 +19,33 @@ resource "aws_iam_role" "transcribe_role" {
 }
 
 
-# Create an IAM policy for transcribe service
+# Create an IAM policy for Kinesis Data Firehose
 resource "aws_iam_policy" "transcribe_policy" {
   name        = var.transcribe_iam_policy_name
   description = "IAM policy for transcribe"
   
   policy = jsonencode({
     "Version": "2012-10-17",
-    "Statement": [
+     "Statement": [
       {
         "Effect": "Allow",
         "Action": [
-          "transcribe:PutRecord",
-          "transcribe:PutRecordBatch"
+          "s3:GetObject"
         ],
-        "Resource": "*"
+        "Resource": [
+          "arn:aws:s3:::my-transcribe-input-bucket-1/transcribe/transcribe_audio.mp3"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        "Resource": [
+          "arn:aws:s3:::my-transcribe-input-bucket-1",
+          "arn:aws:s3:::my-transcribe-output-bucket-1/*"
+        ]
       }
     ]
   })
@@ -48,38 +59,23 @@ resource "aws_iam_policy_attachment" "transcribe_attachment" {
   roles      = [aws_iam_role.transcribe_role.name]
 }
 
-
 # Create an S3 bucket for the input audio file
 resource "aws_s3_bucket" "transcribe_input" {
   bucket = "my-transcribe-input-bucket-1"
 }
 
-# Create an S3 bucket for the transcription output
-# resource "aws_s3_bucket" "transcribe_output" {
-#  bucket = "my-transcribe-output-bucket"
-
-# }
-
-
-# Create an AWS Transcribe language model (optional)
-resource "aws_transcribe_language_model" "example_language_model" {
-  model_name = var.transcribe_language_model_name
-  base_model_name = var.base_model_name
-  language_code = var.language_code
-  input_data_config {
-    data_access_role_arn="aws"
-    s3_uri = "s3://${aws_s3_bucket.transcribe_input.id}/custom-language-model-data/"  # specifies the Amazon S3 location where the input data for the custom language model is stored
-  }
+resource "aws_s3_object" "transcribe_input_file" {
+  bucket = aws_s3_bucket.transcribe_input.id
+  key    = "transcribe/transcribe_audio.mp3"
+  source = "/home/komatinikhitha/Downloads/transcribe_audio.mp3"
 }
 
-
-# Create an AWS Transcribe medical vocabulary (optional)
-resource "aws_transcribe_medical_vocabulary" "example_medical_vocabulary" {
-  vocabulary_name = var.medical_vocabulary_name
-  language_code   = var.language_code
-  vocabulary_file_uri = "s3://${aws_s3_bucket.transcribe_input.id}/medical-vocabulary.txt"
-
+resource "aws_s3_object" "transcribe_input_file-1" {
+  bucket = aws_s3_bucket.transcribe_input.id
+  key    = "transcribe/transcribe.txt"
+  source = "/home/komatinikhitha/Downloads/transcribe.txt"
 }
+
 
 # Create an AWS Transcribe vocabulary (optional)
 resource "aws_transcribe_vocabulary" "example_vocabulary" {
@@ -89,6 +85,14 @@ resource "aws_transcribe_vocabulary" "example_vocabulary" {
   tags=var.name_tags
 }
 
-
+resource "aws_transcribe_language_model" "example_language_model" {
+  model_name = "example-language-model"
+  base_model_name = var.base_model_name
+  language_code = "en-US"
+  input_data_config {
+    data_access_role_arn = aws_iam_role.transcribe_role.arn
+    s3_uri = "s3://my-transcribe-input-bucket-1/transcribe/"
+  }
+}
 
 
