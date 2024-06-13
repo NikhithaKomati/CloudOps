@@ -73,4 +73,4 @@ to run:
 to destroy: 
             terraform destroy
 
----> It is a paid service so, i did without terraform apply, and done with basic example taking manifest.json
+---> It is a paid service and separately asking to login for this site. so, i did without terraform apply, and done with basic example taking manifest.json
