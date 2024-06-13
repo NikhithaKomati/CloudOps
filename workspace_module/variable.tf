@@ -10,17 +10,11 @@ variable "service_directory_name" {
   default="corp.example.com"
 }
 
-variable "workspace_directory_name" {
-  description = "describing the workspace directory name"
-  type = string
-  default = "Example Directory"
-}
-
-variable "workspace_bundle_name" {
-  description = "describing the workspace bundle name"
-  type = string
-  default = "Example Bundle"
-}
+# variable "workspace_directory_name" {
+#   description = "describing the workspace directory name"
+#   type = string
+#   default = "Example Directory"
+# }
 
 variable "name_tags" {
   description = "Tags to be applied on the naming of the Config"
