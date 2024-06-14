@@ -48,6 +48,21 @@ resource "aws_iam_policy_attachment" "mediaconvert_attachment" {
   roles      = [aws_iam_role.mediaconvert_role.name]
 }
 
+resource "aws_s3_bucket" "input_bucket" {
+  bucket = var.s3_input_bucket_name
+}
+
+resource "aws_s3_bucket" "output_bucket" {
+  bucket = var.s3_bucket_output_name
+}
+
+# Add the input file to the S3 input bucket
+resource "aws_s3_object" "input_file" {
+  bucket = aws_s3_bucket.input_bucket.id
+  key    = "sample_video.mp4"
+  source = "/home/komatinikhitha/Downloads/sample_video.mp4"
+}
+
 
 resource "aws_media_convert_queue" "example_queue" {
   name   = var.media_convert_queue_name
@@ -61,4 +76,8 @@ resource "aws_media_convert_queue" "example_queue" {
     creationdate = var.creationdate
   }
 }
+
+
+
+
 
