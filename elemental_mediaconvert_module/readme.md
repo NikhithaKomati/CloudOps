@@ -1,6 +1,8 @@
 This Terraform configuration sets up the following AWS resources:
 
- IAM Role and Policy : Creates an IAM role and policy for the AWS MediaConvert service.                                   
+ IAM Role and Policy : Creates an IAM role and policy for the AWS MediaConvert service.
+ s3 bucket for input and output storage
+ s3 object : added a video file to the input s3 bucket 
  MediaConvert Queue : Creates an AWS MediaConvert queue.
 
 
@@ -17,5 +19,3 @@ to run
 
 to destroy
    terraform destroy
-
----> This is a paid service, so I just did till terraform plan.
