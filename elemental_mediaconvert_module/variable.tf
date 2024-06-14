@@ -23,6 +23,18 @@ variable "iam_attchment_name" {
   default = "mediaconvert_policy_attachment"
 }
 
+variable "s3_input_bucket_name" {
+  description = "defining the name of the input s3 bucket"
+  type = string
+  default = "my-input-bucket"
+}
+
+variable "s3_bucket_output_name" {
+  description = "defining the name of the output s3 bucket"
+  type = string
+  default = "my-output-bucket"
+}
+
 variable "media_convert_queue_name" {
     description = "describing the name of the media convert queue name"
     type = string
