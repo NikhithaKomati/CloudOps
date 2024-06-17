@@ -23,7 +23,7 @@ resource "aws_iam_role" "mediaconvert_role" {
 # Create an IAM policy for mediaconvert
 resource "aws_iam_policy" "mediaconvert_policy" {
   name        = var.iam_policy
-  description = "IAM policy for Kinesis Data Firehose"
+  description = "IAM policy for elemental mediaconvert"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -31,8 +31,8 @@ resource "aws_iam_policy" "mediaconvert_policy" {
       {
         "Effect" : "Allow",
         "Action" : [
-          "firehose:PutRecord",
-          "firehose:PutRecordBatch"
+          "mediaconvert:PutRecord",
+          "mediaconvert:PutRecordBatch"
         ],
         "Resource" : "*"
       }
