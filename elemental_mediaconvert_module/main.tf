@@ -31,8 +31,7 @@ resource "aws_iam_policy" "mediaconvert_policy" {
       {
         "Effect" : "Allow",
         "Action" : [
-          "mediaconvert:PutRecord",
-          "mediaconvert:PutRecordBatch"
+          "mediaconvert:*",
         ],
         "Resource" : "*"
       }
