@@ -1,7 +1,16 @@
 variable "aws_region" {
   description = "AWS region for SES resources"
   type        = string
-  default     = "us-east-1"
+  default     = "us-east-2"
+}
+variable "email" {
+  description = "defining the email"
+  type=string
+}
+variable "s3_bucket_name" {
+  description = "defining the name of the s3 bucket"
+  type=string
+  default = "my-quicksight-bucket"
 }
 variable "user_role" {
   description = "describing the user role"
