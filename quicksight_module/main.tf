@@ -4,7 +4,7 @@ provider "aws" {
 
 # QuickSight User
 resource "aws_quicksight_user" "example_user" {
-  email         = "example@example.com"
+  email         = var.email
   namespace     = "default"
   user_role     = var.user_role
   identity_type = var.identity_type
@@ -12,15 +12,15 @@ resource "aws_quicksight_user" "example_user" {
 
 # Create an S3 bucket
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "my-bucket"
+  bucket = var.s3_bucket_name
   # acl    = "private"
 }
 
 # Upload a file to the S3 bucket
 resource "aws_s3_object" "example_file" {
   bucket = aws_s3_bucket.example_bucket.id
-  key    = "path/to/manifest.json"
-  source = "path/to/local/manifest.json"
+  key    = "students.csv"
+  source = "/home/komatinikhitha/Downloads/students.csv"
 }
 
 # QuickSight Data Source
@@ -30,8 +30,8 @@ resource "aws_quicksight_data_source" "example_data_source" {
   parameters {
     s3 {
       manifest_file_location {
-        bucket = "my-bucket"
-        key    = "path/to/manifest.json"
+        bucket = var.s3_bucket_name
+        key    = "students.csv"
       }
     }
   }
@@ -50,14 +50,14 @@ resource "aws_quicksight_data_set" "example_data_set" {
       data_source_arn = aws_quicksight_data_source.example_data_source.arn
       input_columns {
         name = "column1"
-        type = "STRING"
+        type = "INTEGER"
       }
       input_columns {
         name = "column2"
-        type = "INTEGER"
+        type = "STRING"
       }
       upload_settings {
-        format = "JSON"
+        format = "CSV"
       }
     }
   }
@@ -73,7 +73,6 @@ resource "aws_quicksight_analysis" "example_analysis" {
       identifier   = "1"
     }
   }
-
 }
 
 # QuickSight Dashboard
@@ -87,7 +86,6 @@ resource "aws_quicksight_dashboard" "example_dashboard" {
       identifier   = "1"
     }
   }
-
 }
 
 
