@@ -1,3 +1,4 @@
+
 provider "aws" {
   region = var.aws_region
 }
@@ -54,14 +55,14 @@ resource "aws_iam_policy" "transcribe_policy" {
 
 # Attach the IAM policy to the IAM role
 resource "aws_iam_policy_attachment" "transcribe_attachment" {
-  name       = "transcribe-attachment"
+  name       = var.transcribe_iam_policy_attachment
   policy_arn = aws_iam_policy.transcribe_policy.arn
   roles      = [aws_iam_role.transcribe_role.name]
 }
 
 # Create an S3 bucket for the input audio file
 resource "aws_s3_bucket" "transcribe_input" {
-  bucket = "my-transcribe-input-bucket-1"
+  bucket = var.transcribe_s3_bucket_name
 }
 
 resource "aws_s3_object" "transcribe_input_file" {
@@ -79,20 +80,21 @@ resource "aws_s3_object" "transcribe_input_file-1" {
 
 # Create an AWS Transcribe vocabulary (optional)
 resource "aws_transcribe_vocabulary" "example_vocabulary" {
-  vocabulary_name = "example-vocabulary"
+  vocabulary_name = var.transcribe_vocabulary_name
   language_code   = var.language_code
   phrases         = ["example", "phrase", "vocabulary"]
   tags=var.name_tags
 }
 
 resource "aws_transcribe_language_model" "example_language_model" {
-  model_name = "example-language-model"
+  model_name = var.transcribe_language_model_name
   base_model_name = var.base_model_name
-  language_code = "en-US"
+  language_code = var.language_code
   input_data_config {
     data_access_role_arn = aws_iam_role.transcribe_role.arn
     s3_uri = "s3://my-transcribe-input-bucket-1/transcribe/"
   }
+  tags = var.name_tags
 }
 
 
