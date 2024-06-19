@@ -2,31 +2,53 @@
 variable "aws_region" {
   description = "AWS region for transcribe resources"
   type        = string
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "iam_role_name" {
   description = "describing a role for the iam_role"
-  default = "transcribe-role"
+  default     = "transcribe-role"
 }
 
+variable "transcribe_iam_policy_name" {
+  description = "defining the name of the iam policy"
+  type        = string
+  default     = "transcribe-policy"
+}
+
+variable "transcribe_iam_policy_attachment" {
+  description = "defining the the name of  the iam policy attachment"
+  type        = string
+  default     = "transcribe-attachment"
+}
+
+variable "transcribe_s3_bucket_name" {
+  description = "defining the name of the s3 bucket"
+  type        = string
+  default     = "my-transcribe-input-bucket-1"
+}
+variable "transcribe_vocabulary_name" {
+  description = "defining the name of the transcribe vocabulary"
+  type        = string
+  default     = "default-vocabulary"
+}
 variable "transcribe_language_model_name" {
-    description = "describing the transcribe language model name"
-  default = "model"
+  description = "describing the transcribe language model name"
+  type        = string
+  default     = "model"
 }
 
 variable "language_code" {
-    description = "describing the transcribe language code"
-  default = "en-US"
+  description = "describing the transcribe language code"
+  type        = string
+  default     = "en-US"
 }
 variable "base_model_name" {
-    description = "describing the transcribe base model name"
-  default = "NarrowBand"
+  description = "describing the transcribe base model name"
+  type        = string
+  default     = "NarrowBand"
 }
-variable "medical_vocabulary_name" {
-    description = "describing the transcribe medical vocabulary name"
-  default = "example-medical-vocabulary"
-}
+
 variable "name_tags" {
   description = "Tags to be applied on the naming of the Config"
   type        = map(string)
@@ -38,5 +60,4 @@ variable "name_tags" {
     owneremail   = "owner@mail.com"
     creationdate = "08-06-2024"
   }
-
 }
