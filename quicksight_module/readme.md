@@ -1,12 +1,13 @@
 
 This Terraform configuration sets up the necessary infrastructure for an AWS QuickSight :
 
-QuickSight User: Creates a QuickSight user with the specified email, namespace, user role, and identity type.         
-S3 Bucket: Creates an S3 bucket to store the data for the QuickSight data source.                                     
-S3 Object: Uploads a local file (e.g., "manifest.json") to the S3 bucket.                                             
-QuickSight Data Source: Creates a QuickSight data source, specifying the S3 bucket and the path to the uploaded manifest file.                                                                                                        
-QuickSight Data Set: Creates a QuickSight data set, specifying the data source and the input columns.                 
-QuickSight Analysis: Creates a QuickSight analysis, referencing the data set.                                         
+
+QuickSight User: Creates a QuickSight user with the specified email, namespace, user role, and identity type.
+S3 Bucket: Creates an S3 bucket to store the data for the QuickSight data source.
+S3 Object: Uploads a local file (students.csv) to the S3 bucket.
+QuickSight Data Source: Creates a QuickSight data source, specifying the S3 bucket and the path to the uploaded students file.
+QuickSight Data Set: Creates a QuickSight data set, specifying the data source and the input columns.
+QuickSight Analysis: Creates a QuickSight analysis, referencing the data set.
 QuickSight Dashboard: Creates a QuickSight dashboard, referencing the data set.
 
 
@@ -73,7 +74,8 @@ to run:
 to destroy: 
             terraform destroy
 
----> It is a paid service and separately asking to login for this site. so, i did without terraform apply, and done with basic example taking manifest.json
+---> It is a paid service so, i did without terraform apply, and done with basic example taking students.csv
+
 ![Screenshot from 2024-06-13 19-04-19](https://github.com/NikhithaKomati/CloudOps/assets/169144759/3876017b-bb88-439f-903e-6163ee8f17b3)
 
 
