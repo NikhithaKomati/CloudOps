@@ -43,8 +43,7 @@ resource "aws_iam_policy" "transcribe_policy" {
           "s3:ListBucket"
         ],
         "Resource": [
-          "arn:aws:s3:::my-transcribe-input-bucket-1",
-          "arn:aws:s3:::my-transcribe-output-bucket-1/*"
+          "arn:aws:s3:::my-transcribe-input-bucket-1"
         ]
       }
     ]
