@@ -44,21 +44,6 @@ resource "aws_api_gateway_stage" "stage" {
   }
 }
 
-resource "aws_api_gateway_usage_plan" "api-usage-plam" {
-  name="my-usage-plan"
-  api_stages {
-    api_id = aws_api_gateway_rest_api.first-api.id
-    stage = aws_api_gateway_stage.stage.stage_name
-  }
-  quota_settings {
-    limit = 100
-    period = "WEEK"
-  }
-  throttle_settings {
-    burst_limit = 50  #maximum number of concurrent requests allowed.
-    rate_limit = 20   #maximum number of requests allowed per second.
-  }
-}
 
 # Execute terraform apply to apply the configuration, and the API Gateway URL will be displayed as an output.
 # output "api_url" {
