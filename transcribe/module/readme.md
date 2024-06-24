@@ -56,6 +56,7 @@ to destroy
 
 i tried to convert an audio file to text but it is asking for read permission 
 
+![image](https://github.com/NikhithaKomati/CloudOps/assets/169144759/90ac5aee-7785-4832-9c59-e703169589e0)
 
 
 
